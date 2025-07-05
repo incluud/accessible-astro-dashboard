@@ -56,6 +56,7 @@ Clone this theme locally and run any of the following commands in your terminal:
 - [Accessible Astro Components](https://github.com/incluud/accessible-astro-components/): Library of reusable, accessible components build for Astro.
 - [Accessible Astro Dashboard](https://github.com/incluud/accessible-astro-dashboard/): User-friendly dashboard interface with a login screen and widgets.
 - [Accessible Astro Docs](https://github.com/incluud/accessible-astro-docs): Comprehensive documentation for all Accessible Astro projects.
+- [Color Contrast Checker](https://github.com/incluud/color-contrast-checker): WCAG-compliant color contrast checker with design system token generation.
 
 Check out our [roadmap](https://github.com/orgs/incluud/projects/4/views/1) to see what's coming next!
 
