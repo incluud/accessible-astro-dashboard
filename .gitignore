@@ -23,5 +23,5 @@ yarn-error.log*
 # webstorm settings and dictionaries
 .idea
 
-# package lock
-package-lock.json
+# astro generated files
+.astro

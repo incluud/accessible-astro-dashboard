@@ -41,5 +41,8 @@ import DashboardWidget from '../components/DashboardWidget.astro';
 
 <script>
   const date = new Date()
-  document.querySelector('#current-time').innerHTML = `<em>${date.toDateString()}</em>`
+  const currentTime = document.querySelector('#current-time') as HTMLElement
+  if (currentTime) {
+    currentTime.innerHTML = `<em>${date.toDateString()}</em>`
+  }
 </script>

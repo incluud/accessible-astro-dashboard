@@ -1,9 +1,11 @@
 ---
 import { Notification } from 'accessible-astro-components'
-import { Icon } from 'astro-icon'
+import { Icon } from 'astro-icon/components'
 ---
 
-<Notification type="info">
-  <Icon pack="majesticons" name="academic-cap-line" />
-  <slot />
+<Notification>
+  <Fragment>
+    <Icon name="lucide:graduation-cap" />
+    <slot />
+  </Fragment>
 </Notification>

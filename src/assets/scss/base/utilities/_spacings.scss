@@ -3,10 +3,11 @@
 // | -------------------------------------------------------------
 
 @use '../space' as *;
+@use 'sass:list';
 
 @each $space in $space-scale {
-  $nr: nth($space, 1);
-  $space-amount: nth($space, 2);
+  $nr: list.nth($space, 1);
+  $space-amount: list.nth($space, 2);
 
   .space-#{$nr} {
     padding: #{$space-amount};

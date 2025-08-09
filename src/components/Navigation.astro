@@ -1,6 +1,7 @@
 ---
 import ResponsiveToggle from './ResponsiveToggle.astro'
-import { Icon } from 'astro-icon'
+import { Icon } from 'astro-icon/components'
+import logo from '../assets/img/logo.svg' 
 ---
 
 <div id="main-navigation" class="is-desktop">
@@ -8,19 +9,19 @@ import { Icon } from 'astro-icon'
     <nav>
       <ul>
         <li class="brand-logo">
-          <img src={(await import('../assets/img/logo.svg')).default} >
+          <img src={logo.src} >
           <span class="sr-only">Brand Name</span>
         </li>
         <li class="menu-item">
           <button class="toggle-expanded-view" aria-expanded="false">
-            <Icon pack="majesticons" name="chevron-double-right-line" /> 
+            <Icon name="lucide:chevrons-right" /> 
             <span class="sr-only">Expand menu</span>
           </button>
         </li>
         <slot />
         <li class="menu-item bottom-position">
           <a href="/login/">
-            <Icon pack="majesticons" name="logout-line" /> 
+            <Icon name="lucide:log-out" /> 
             <span class="sr-only">Logout</span>
           </a>
         </li>
@@ -35,7 +36,7 @@ import { Icon } from 'astro-icon'
   </div>
   <div class="container mobile-menu padding-16">
     <a href="/">
-      <img src={(await import('../assets/img/logo.svg')).default} alt="Your Logo">
+      <img src={logo.src} alt="Your Logo">
     </a>
     <ResponsiveToggle />
     <nav>
@@ -43,8 +44,8 @@ import { Icon } from 'astro-icon'
         <slot />
         <li class="menu-item">
           <a href="/login">
-            <Icon pack="majesticons" name="logout-line" /> 
-            <span class="sr-only">Logout</span>
+             <Icon name="lucide:log-out" /> 
+             <span class="sr-only">Logout</span>
           </a>
         </li>
         <li class="menu-item user-avatar">
@@ -60,19 +61,19 @@ import { Icon } from 'astro-icon'
 
 <script>
   // variables
-  const mainNav = document.querySelector('#main-navigation')
-  const mainMenu = mainNav.querySelector('ul')
-  const toggleExpandedView = document.querySelector('.toggle-expanded-view')
-  const menuIconLabels = [...mainNav.querySelectorAll('.sr-only')]
+  const mainNav = document.querySelector('#main-navigation') as HTMLElement
+  const mainMenu = mainNav.querySelector('ul') as HTMLElement
+  const toggleExpandedView = document.querySelector('.toggle-expanded-view') as HTMLElement
+  const menuIconLabels = [...mainNav.querySelectorAll('.sr-only')] as HTMLElement[]
   const mediaQuery = window.matchMedia('(min-width: 48em)')
   let isMenuExpanded = localStorage.getItem('isMenuExpanded')
 
   // functions
   const setActiveMenuItem = () => {
-    const menuItems = [...mainMenu.querySelectorAll('a:not([rel*="external"])')]
+    const menuItems = [...mainMenu.querySelectorAll('a:not([rel*="external"])')] as HTMLAnchorElement[]
 
     menuItems.forEach(menuItem => {
-      if (menuItem.pathname === window.location.pathname) {
+      if (menuItem.getAttribute('href') === window.location.pathname) {
         menuItem.classList.add('is-active')
         menuItem.setAttribute('aria-current', 'page')
       }
@@ -83,7 +84,11 @@ import { Icon } from 'astro-icon'
     mainNav.classList.add('is-expanded')
     localStorage.setItem('isMenuExpanded', 'true')
     toggleExpandedView.setAttribute('aria-expanded', 'true')
-    toggleExpandedView.querySelector('span').textContent = 'Collapse menu'
+    
+    const span = toggleExpandedView.querySelector('span') as HTMLSpanElement
+    if (span) {
+      span.textContent = 'Collapse menu'
+    }
     
     menuIconLabels.forEach(menuIconLabel => {
       menuIconLabel.classList.remove('sr-only')
@@ -92,9 +97,12 @@ import { Icon } from 'astro-icon'
 
   const collapseMenu = () => {
     mainNav.classList.remove('is-expanded')
-    localStorage.setItem('isMenuExpanded', null)
+    localStorage.setItem('isMenuExpanded', 'false')
     toggleExpandedView.setAttribute('aria-expanded', 'false')
-    toggleExpandedView.querySelector('span').textContent = 'Expand menu'
+    const span = toggleExpandedView.querySelector('span') as HTMLSpanElement
+    if (span) {
+      span.textContent = 'Expand menu'
+    }
     
     menuIconLabels.forEach(menuIconLabel => {
       menuIconLabel.classList.add('sr-only')
@@ -116,13 +124,16 @@ import { Icon } from 'astro-icon'
   }
 
   // execution
-  mainMenu && mainMenu.addEventListener('keydown', event => {
-    const currentMenuItem = event.target.closest('li')
-    const menuItems = [...mainMenu.querySelectorAll('.menu-item')]
+  mainMenu.addEventListener('keydown', (event: KeyboardEvent) => {
+    const target = event.target as HTMLElement
+    const currentMenuItem = target.closest('.menu-item') as HTMLElement
+    if (!currentMenuItem) return
+
+    const menuItems = [...mainMenu.querySelectorAll('.menu-item')] as HTMLElement[]
     const currentIndex = menuItems.findIndex(item => item === currentMenuItem)
 
     const key = event.key
-    let targetItem
+    let targetItem: HTMLElement | undefined
 
     if (key === 'ArrowDown') {
       event.preventDefault()
@@ -147,7 +158,10 @@ import { Icon } from 'astro-icon'
     }
 
     if (targetItem) {
-      targetItem.querySelector('a, button, input').focus()
+      const focusable = targetItem.querySelector('a, button, input') as HTMLElement
+      if (focusable) {
+        focusable.focus()
+      }
     }
   })
 

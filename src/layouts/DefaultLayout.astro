@@ -1,8 +1,8 @@
 ---
 import '../assets/scss/globals.scss'
 import Navigation from '../components/Navigation.astro'
-import { DarkMode, SkipLinks } from 'accessible-astro-components'
-import { Icon } from 'astro-icon'
+import { DarkMode, SkipLink } from 'accessible-astro-components'
+import { Icon } from 'astro-icon/components'
 
 const {title} = Astro.props
 let subtitle = 'Accessible Astro Dashboard'
@@ -34,7 +34,7 @@ let subtitle = 'Accessible Astro Dashboard'
   </head>
   <body>
     <header>
-      <SkipLinks />
+      <SkipLink />
     </header>
     <div class="ui-controls">
       <DarkMode />
@@ -43,31 +43,31 @@ let subtitle = 'Accessible Astro Dashboard'
       <Navigation>
         <li class="menu-item">
           <a href="/">
-            <Icon pack="majesticons" name="home-line" /> 
+            <Icon name="lucide:house" /> 
             <span class="sr-only">Dashboard</span>
           </a>
         </li>
         <li class="menu-item">
           <a href="/products/">
-            <Icon pack="majesticons" name="shopping-cart-line" /> 
+            <Icon name="lucide:shopping-cart" /> 
             <span class="sr-only">Products</span>
           </a>
         </li>
         <li class="menu-item">
           <a href="/users/">
-            <Icon pack="majesticons" name="users-line" /> 
+            <Icon name="lucide:users" /> 
             <span class="sr-only">Users</span>
           </a>
         </li>
         <li class="menu-item">
           <a href="/messages/">
-            <Icon pack="majesticons" name="messages-line" /> 
+            <Icon name="lucide:messages-square" /> 
             <span class="sr-only">Messages</span>
           </a>
         </li>
         <li class="menu-item">
           <a href="/media/">
-            <Icon pack="majesticons" name="image-line" /> 
+            <Icon name="lucide:image" /> 
             <span class="sr-only">Media</span>
           </a>
         </li>

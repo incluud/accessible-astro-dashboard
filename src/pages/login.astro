@@ -2,7 +2,7 @@
 import LoginLayout from '../layouts/LoginLayout.astro'
 import LoginForm from '../components/LoginForm.astro'
 import { Notification } from 'accessible-astro-components'
-import { Icon } from 'astro-icon'
+import { Icon } from 'astro-icon/components'
 ---
 
 <LoginLayout title="Login">
@@ -24,7 +24,8 @@ import { Icon } from 'astro-icon'
         </div>
         <div class="inner__form space-content">
           <Notification>
-            <Icon pack="majesticons" name="information-circle-line" /><p class="size-14">Log in using <strong>admin@astro.demo</strong> and <strong>Astronaut570</strong>.</p>          
+            <Icon name="lucide:info" />
+            <p class="size-14">Log in using <strong>admin@astro.demo</strong> and <strong>Astronaut570</strong>.</p>          
           </Notification>
           <div class="space-content">
             <h1>Login</h1>

@@ -4,11 +4,12 @@
 
 @use '../breakpoint' as *;
 @use '../space' as *;
+@use 'sass:list';
 
 @each $space in $space-scale {
-  $nr: nth($space, 1);
-  $space-small: nth($space, 2);
-  $space-medium: nth($space, 3);
+  $nr: list.nth($space, 1);
+  $space-small: list.nth($space, 2);
+  $space-medium: list.nth($space, 3);
 
   .padding-#{$nr} {
     padding-top: #{$space-small};
