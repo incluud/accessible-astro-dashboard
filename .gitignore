@@ -25,3 +25,6 @@ yarn-error.log*
 
 # astro generated files
 .astro
+
+# Local Netlify folder
+.netlify

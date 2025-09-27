@@ -1,15 +1,26 @@
 ---
 import { Notification } from 'accessible-astro-components'
 import { Icon } from 'astro-icon/components'
+
+// Check for error parameter from middleware
+const url = new URL(Astro.request.url);
+const error = url.searchParams.get('error');
 ---
 
-<form class="login-form space-content" method="post">
-  <Notification type="warning">
-    <Fragment>
-      <Icon name="lucide:frown" />
-      <p class="size-12">Incorrect email and password combination. Please try again.</p>
-    </Fragment>
-  </Notification>
+<form class="login-form space-content" method="post" action="/login">
+  {error && (
+    <Notification type="warning">
+      <Fragment>
+        <Icon name="lucide:frown" />
+        <p class="size-12">
+          {error === 'invalid' 
+            ? 'Incorrect email and password combination. Please try again.'
+            : 'Server error occurred. Please try again.'
+          }
+        </p>
+      </Fragment>
+    </Notification>
+  )}
   <div class="login-form__controls">
     <label for="email">Email</label>
     <input type="email" name="email" required>
@@ -26,29 +37,6 @@ import { Icon } from 'astro-icon/components'
   <a href="#">Forgot password?</a>
 </form> 
 
-<script>
-  // variables
-  const form = document.querySelector('.login-form')
-  if (!form) throw new Error('Login form not found')
-  const notification = form.querySelector('.notification') as HTMLElement
-  const emailInput = form.querySelector('input[name="email"]') as HTMLInputElement
-  const passwordInput = form.querySelector('input[name="password"]') as HTMLInputElement
-  const submitButton = form.querySelector('button') as HTMLButtonElement
-
-  // execution
-  notification.style.display = 'none'
-
-  submitButton.addEventListener('click', event => {
-    event.preventDefault()
-
-    if (emailInput.value === 'admin@astro.demo' && passwordInput.value === 'Astronaut570') {
-      localStorage.setItem('isLoggedIn', 'true')
-      window.location.href = '/'
-    } else {
-      notification.style.display = 'flex'
-    }
-  })
-</script>
 
 <style lang="scss" is:global>
   @use '../assets/scss/base/border' as *;

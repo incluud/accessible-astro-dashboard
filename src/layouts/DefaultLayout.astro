@@ -79,13 +79,6 @@ let subtitle = 'Accessible Astro Dashboard'
   </body>
 </html>
 
-<script>
-  let isLoggedIn = await localStorage.getItem('isLoggedIn')
-
-  if (isLoggedIn === null) {
-    window.location.href = '/login'
-  }
-</script>
 
 <style lang="scss">
   @use '../assets/scss/base/breakpoint' as *;

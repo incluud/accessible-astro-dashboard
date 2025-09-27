@@ -2,15 +2,17 @@
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 8h12M6 12h12M6 16h12"/></svg>
 </button>
 
-<script>
-  // variables
-  const mainNav = document.querySelector('#main-navigation')
-  if (!mainNav) return
-  const mobileNavigation = mainNav.querySelector('.mobile-menu')
-  const responsiveToggle = mainNav.querySelector('.responsive-toggle')
-  if (!mobileNavigation || !responsiveToggle) return
-  const menuIconLabels = [...mainNav.querySelectorAll('.sr-only')]
-  const mediaQuery = window.matchMedia('(min-width: 48em)')
+<script is:inline>
+  // Wait for DOM to be ready
+  document.addEventListener('DOMContentLoaded', () => {
+    // variables
+    const mainNav = document.querySelector('#main-navigation')
+    if (!mainNav) return
+    const mobileNavigation = mainNav.querySelector('.mobile-menu')
+    const responsiveToggle = mainNav.querySelector('.responsive-toggle')
+    if (!mobileNavigation || !responsiveToggle) return
+    const menuIconLabels = [...mainNav.querySelectorAll('.sr-only')]
+    const mediaQuery = window.matchMedia('(min-width: 48em)')
 
   // functions
   const openMenu = (toggle) => {
@@ -39,17 +41,18 @@
       : closeMenu(responsiveToggle)
   })
 
-  window.addEventListener('resize', () => {
-    const menuIconLabels = [...mainNav.querySelectorAll('span')]
+    window.addEventListener('resize', () => {
+      const menuIconLabels = [...mainNav.querySelectorAll('span')]
 
-    if (mediaQuery.matches) {
-      mobileNavigation.classList.remove('show')
-      closeMenu(responsiveToggle)
-    } else {
-      menuIconLabels.forEach(menuIconLabel => {
-        menuIconLabel.classList.remove('sr-only')
-      })
-    }
+      if (mediaQuery.matches) {
+        mobileNavigation.classList.remove('show')
+        closeMenu(responsiveToggle)
+      } else {
+        menuIconLabels.forEach(menuIconLabel => {
+          menuIconLabel.classList.remove('sr-only')
+        })
+      }
+    })
   })
 </script>
 
