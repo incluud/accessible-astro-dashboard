@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@astrojs/mdx": "^4.3.5",
+    "@astrojs/netlify": "^6.5.11",
     "@astrojs/partytown": "^2.1.4",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.35.0",
@@ -59,9 +60,7 @@
     "tailwindcss": "^4.1.13"
   },
   "dependencies": {
-    "@astrojs/netlify": "^6.5.11",
-    "@iconify-json/lucide": "^1.2.61",
-    "accessible-astro-components": "^5.0.1",
-    "astro-icon": "^1.1.5"
+    "@tailwindcss/vite": "^4.1.13",
+    "accessible-astro-components": "^5.0.1"
   }
 }
