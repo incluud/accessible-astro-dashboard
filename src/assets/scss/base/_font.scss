@@ -1,102 +1,160 @@
-// | -------------------------------------------------------------
-// | Font
-// | -------------------------------------------------------------
+@use 'breakpoint' as *;
 
-@use "breakpoint" as *;
-@use "outline" as *;
-@use "size" as *;
-@use "space" as *;
+// Atkinson Hyperlegible font faces
+@font-face {
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Atkinson Hyperlegible Regular'),
+    local('AtkinsonHyperlegible-Regular'),
+    url('/fonts/AtkinsonHyperlegibleNext-Regular.woff2') format('woff2');
+  font-family: 'Atkinson Hyperlegible';
+  font-display: swap;
+}
 
-body {
-  color: var(--font-color);
-  background-color: var(--background);
-  font-family: var(--font-family-default);
-  text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
-  text-rendering: optimizeLegibility;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  @include size-16;
+@font-face {
+  font-style: italic;
+  font-weight: 400;
+  src:
+    local('Atkinson Hyperlegible Italic'),
+    local('AtkinsonHyperlegible-Italic'),
+    url('/fonts/AtkinsonHyperlegibleNext-RegularItalic.woff2') format('woff2');
+  font-family: 'Atkinson Hyperlegible';
+  font-display: swap;
+}
 
-  a {
-    color: var(--action-color);
+@font-face {
+  font-style: normal;
+  font-weight: 700;
+  src:
+    local('Atkinson Hyperlegible Bold'),
+    local('AtkinsonHyperlegible-Bold'),
+    url('/fonts/AtkinsonHyperlegibleNext-Bold.woff2') format('woff2');
+  font-family: 'Atkinson Hyperlegible';
+  font-display: swap;
+}
 
-    &:visited {
-      color: var(--action-color);
-    }
+@font-face {
+  font-style: italic;
+  font-weight: 700;
+  src:
+    local('Atkinson Hyperlegible Bold Italic'),
+    local('AtkinsonHyperlegible-BoldItalic'),
+    url('/fonts/AtkinsonHyperlegibleNext-BoldItalic.woff2') format('woff2');
+  font-family: 'Atkinson Hyperlegible';
+  font-display: swap;
+}
 
-    &:hover,
-    &:focus {
-      color: var(--action-color);
-      text-decoration: none;
-    }
+// Additional weights
+@font-face {
+  font-style: normal;
+  font-weight: 300;
+  src:
+    local('Atkinson Hyperlegible Light'),
+    local('AtkinsonHyperlegible-Light'),
+    url('/fonts/AtkinsonHyperlegibleNext-Light.woff2') format('woff2');
+  font-family: 'Atkinson Hyperlegible';
+  font-display: swap;
+}
+
+@font-face {
+  font-style: italic;
+  font-weight: 300;
+  src:
+    local('Atkinson Hyperlegible Light Italic'),
+    local('AtkinsonHyperlegible-LightItalic'),
+    url('/fonts/AtkinsonHyperlegibleNext-LightItalic.woff2') format('woff2');
+  font-family: 'Atkinson Hyperlegible';
+  font-display: swap;
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: 500;
+  src:
+    local('Atkinson Hyperlegible Medium'),
+    local('AtkinsonHyperlegible-Medium'),
+    url('/fonts/AtkinsonHyperlegibleNext-Medium.woff2') format('woff2');
+  font-family: 'Atkinson Hyperlegible';
+  font-display: swap;
+}
+
+@font-face {
+  font-style: italic;
+  font-weight: 500;
+  src:
+    local('Atkinson Hyperlegible Medium Italic'),
+    local('AtkinsonHyperlegible-MediumItalic'),
+    url('/fonts/AtkinsonHyperlegibleNext-MediumItalic.woff2') format('woff2');
+  font-family: 'Atkinson Hyperlegible';
+  font-display: swap;
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: 600;
+  src:
+    local('Atkinson Hyperlegible SemiBold'),
+    local('AtkinsonHyperlegible-SemiBold'),
+    url('/fonts/AtkinsonHyperlegibleNext-SemiBold.woff2') format('woff2');
+  font-family: 'Atkinson Hyperlegible';
+  font-display: swap;
+}
+
+@layer base {
+  p {
+    text-wrap: pretty;
   }
 
-  :where(main) a {
-    word-wrap: break-word;
-    word-break: break-word;
-  }
-
-  :where(h1, h2) {
-    font-family: var(--font-family-special);
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    text-wrap: balance;
   }
 
   h1,
   h2 {
-    font-weight: 800;
+    font-weight: 600;
   }
 
   h3,
   h4,
   h5,
   h6 {
-    font-weight: 600;
+    font-weight: 500;
   }
 
   h1 {
-    @include size-36;
-
-    @include breakpoint(medium) {
-      @include size-48;
-    }
+    font-size: var(--font-size-6);
+    line-height: var(--font-size-7);
   }
 
   h2 {
-    @include size-30;
-
-    @include breakpoint(medium) {
-      @include size-36;
-    }
+    font-size: var(--font-size-5);
+    line-height: var(--font-size-6);
   }
 
   h3 {
-    @include size-24;
-
-    @include breakpoint(medium) {
-      @include size-30;
-    }
+    font-size: var(--font-size-4);
+    line-height: var(--font-size-5);
   }
 
   h4 {
-    @include size-20;
-
-    @include breakpoint(medium) {
-      @include size-24;
-    }
+    font-size: var(--font-size-3);
+    line-height: var(--font-size-4);
   }
 
   h5 {
-    @include size-18;
-
-    @include breakpoint(medium) {
-      @include size-20;
-    }
+    font-size: var(--font-size-2);
+    line-height: var(--font-size-3);
   }
 
   h6 {
-    @include size-16;
-
-    @include breakpoint(medium) {
-      @include size-18;
-    }
+    font-size: var(--font-size-1);
+    line-height: var(--font-size-2);
   }
 }

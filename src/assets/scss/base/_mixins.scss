@@ -1,0 +1,56 @@
+@mixin text-decoration(
+  $color: var(--text-decoration-color),
+  $hoverColor: var(--text-decoration-hover-color),
+  $thickness: 2px,
+  $hoverThickness: 1px,
+  $underlineOffset: 4px,
+  $hoverUnderlineOffset: 2px
+) {
+  transition: text-decoration, text-underline-offset, text-decoration-color, text-decoration-thickness;
+  transition-duration: var(--animation-speed-fast);
+  transition-timing-function: var(--cubic-bezier);
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-color: $color;
+  text-decoration-thickness: $thickness;
+  text-decoration-skip-ink: none;
+  text-underline-offset: $underlineOffset;
+
+  &:where(:hover, :focus-visible) {
+    text-decoration-color: $hoverColor;
+    text-decoration-thickness: $hoverThickness;
+    text-underline-offset: $hoverUnderlineOffset;
+  }
+}
+
+@mixin outline {
+  outline: 2px dashed black;
+  outline-color: black;
+  outline-offset: 0;
+  -webkit-box-shadow: 0 0 0 2px white;
+  box-shadow: 0 0 0 2px white;
+}
+
+@mixin sr-only {
+  position: absolute;
+  margin: -1px;
+  padding: 0;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: clip;
+  clip: rect(0, 0, 0, 0);
+  border-width: 0;
+  white-space: nowrap;
+}
+
+@mixin rotate-icon-on-hover {
+  .icon svg {
+    transition: rotate var(--animation-speed-fast) var(--cubic-bezier);
+  }
+
+  &:where(:hover, :focus-visible) {
+    .icon svg {
+      rotate: -90deg;
+    }
+  }
+}

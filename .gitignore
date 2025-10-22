@@ -23,11 +23,11 @@ yarn-error.log*
 # webstorm settings and dictionaries
 .idea
 
+# package lock
+package-lock.json
+
 # astro build files
 .astro
 
-# cursor rules
-.cursor/rules
-
-# Local Netlify folder
-.netlify
+# cursor
+.cursor

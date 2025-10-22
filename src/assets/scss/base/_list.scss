@@ -1,70 +1,60 @@
-// | -------------------------------------------------------------
-// | Lists
-// | -------------------------------------------------------------
+@use 'breakpoint' as *;
 
-@use "breakpoint" as *;
-@use "space" as *;
+ul:not([class]),
+ol:not([class]) {
+  margin-inline-start: var(--space-s);
 
-:where(main) ul:not([class]) {
-  padding: 0 0 0 $space-24;
-  list-style-type: none;
-
-  li {
-    position: relative;
-    margin-bottom: $space-8;
-
-    @include breakpoint(medium) {
-      margin-bottom: $space-12;
-    }
-
-    &::before {
-      position: relative;
-      z-index: 2;
-      float: left;
-      clear: both;
-      margin: 9px 10px 0 -19px;
-      width: 8px;
-      height: 8px;
-      border-radius: 60px;
-      background: var(--action-color);
-      content: "";
-    }
+  ul,
+  ol {
+    padding-inline-start: var(--space-s);
   }
 
-  ul {
-    padding: $space-16 0 0 $space-16;
+  li {
+    margin-block-end: var(--space-xs);
   }
 }
 
-:where(main) ol:not([class]) {
+ul:not([class]) {
+  list-style-type: disc;
+}
+
+ol.incremented {
   counter-reset: item;
+}
 
-  li {
-    display: block;
-    margin-bottom: $space-8;
+ol.incremented ol {
+  counter-reset: item;
+}
 
-    @include breakpoint(medium) {
-      margin-bottom: $space-12;
-    }
+ol.incremented ol,
+ol.incremented ul {
+  margin: var(--space-xs) 0 0 var(--space-s);
+}
 
-    &::before {
-      content: counters(item, ".") ". ";
-      counter-increment: item;
-    }
+ol.incremented li {
+  display: block;
+  margin-block-end: var(--space-xs);
+}
 
-    p {
-      display: inline;
-    }
+@media screen and (max-width: 48rem) {
+  ol.incremented li {
+    margin-block-end: var(--space-xs);
   }
+}
 
-  ol,
-  ul {
-    margin: $space-12 0 0 $space-16;
-  }
+ol.incremented li::before {
+  counter-increment: item;
+  content: counters(item, '.') '. ';
+}
 
-  ul {
-    li::before {
-      content: "";
-    }
-  }
+ol.incremented li:last-child {
+  margin-block-end: 0;
+}
+
+ol.incremented li p {
+  display: inline;
+}
+
+ol.incremented ul li::before {
+  content: '';
 }

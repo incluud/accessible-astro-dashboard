@@ -1,0 +1,20 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Naaldwijk",
+			"country": {
+				"code": "NL",
+				"name": "The Netherlands"
+			},
+			"subdivision": {
+				"code": "ZH",
+				"name": "South Holland"
+			},
+			"timezone": "Europe/Amsterdam",
+			"latitude": 51.9968,
+			"longitude": 4.2057,
+			"postalCode": "2671"
+		},
+		"timestamp": 1760181279223
+	}
+}

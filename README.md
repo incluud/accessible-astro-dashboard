@@ -1,43 +1,61 @@
-# Accessible Astro Dashboard
+# Accessible Astro Starter
 
 [![Built with Astro](https://astro.badg.es/v2/built-with-astro/small.svg)](https://astro.build)
 
-![accessible-astro-dashboard](https://github.com/user-attachments/assets/1c0eaf50-148d-4986-8211-a835a65eb2e3)
+<img width="1200" height="627" alt="social-preview" src="https://github.com/user-attachments/assets/fa1a8b50-3aab-4bd3-8f50-1d43586fbd84" />
 
-A modern, accessibility-focused dashboard template built with [Astro](https://astro.build/). Designed with WCAG guidelines in mind, this theme provides a comprehensive admin interface with built-in accessibility features. It includes a responsive, keyboard-accessible navigation system, authentication flows, and integrates seamlessly with [Accessible Astro Components](https://github.com/incluud/accessible-astro-components). Complete with example pages, authentication flows, and a custom 404 page, this template offers everything you need to kickstart your accessible admin dashboard.
+A ready-to-use, SEO and accessibility-focused Astro starter template. Built with modern web standards, WCAG 2.2 AA guidelines, and European Accessibility Act (EAA) compliance in mind, it provides a solid foundation for creating inclusive websites. Features Tailwind CSS 4 integration, comprehensive component library with enhanced form validation, color contrast checker, and typography with Atkinson Hyperlegible font for improved readability. Includes dynamic blog/portfolio pages with social sharing, contact forms, and full MDX support.
 
-[![LIVE DEMO](https://img.shields.io/badge/LIVE_DEMO-4ECCA3?style=for-the-badge&logo=astro&logoColor=black)](https://accessible-astro-dashboard.incluud.dev/login/) &nbsp;
-[![DOCUMENTATION](https://img.shields.io/badge/DOCUMENTATION-A682FF?style=for-the-badge&logo=astro&logoColor=black)](https://accessible-astro.incluud.dev/themes/accessible-astro-dashboard) &nbsp;
+[![LIVE DEMO](https://img.shields.io/badge/LIVE_DEMO-4ECCA3?style=for-the-badge&logo=astro&logoColor=black)](https://accessible-astro-starter.incluud.dev/) &nbsp;
+[![DOCUMENTATION](https://img.shields.io/badge/DOCUMENTATION-A682FF?style=for-the-badge&logo=astro&logoColor=black)](https://accessible-astro.incluud.dev/) &nbsp;
 [![Sponsor on Open Collective](https://img.shields.io/badge/Open%20Collective-7FADF2?style=for-the-badge&logo=opencollective&logoColor=white)](https://opencollective.com/incluud) &nbsp;
 
 ## Our mission
 
 > Provide developers with accessible, easy-to-use components that make building inclusive web applications simpler and faster, without compromising on customization or performance.
 
-## (Accessibility) features
+## (Accessibility) Features
 
-- Contains a `login.astro` page with an example login using the `localStorage` and a separate `LoginLayout.astro` layout
-- `login.astro` contains example login data and a warning notification for when the credentials are incorrect
-- Contains a dashboard example in the `index.astro` page using the `DefaultLayout.astro` layout
-- Several examples of admin pages such as `media.astro`, `messages.astro`, `products.astro`, `settings.astro` and `users.astro`
-- `Media.astro` component for images, used on the `media.astro` page \*
-- `Pagination.astro` component for paginating results, used on the `media.astro` page \*
-- `DashboardWidget.astro` component serves as an example for the dashboard on `index.astro`
-- `EmpyState.astro` component which can be displayed on pages that don't have any data yet
-- `LoginForm.astro` component with a basic accessible login form and some form controls
-- `SkipLinks.astro` component to skip to either the main menu or the main content \*
-- `Navigation.astro` component with keyboard accessible navigation (arrow keys, escape key)
-  - This component is a comprehensive sidebar navigation on desktop with the option to expand or collapse
-  - The users menu width preference is stored in a `localStorage` value so that it is preserved during page reloads
-  - The navigation automatically switches to an accessible mobile navigation for viewport widths below the medium breakpoint
-- `ResponsiveToggle.astro` component with an accessible responsive toggle button for the mobile navigation
-- `DarkMode.astro` component toggle with accessible button which saves the users preference in the `localStorage` \*
-- `404.astro` provides a custom 404 error page which you can adjust to your needs
-- `.sr-only` utility class for screen reader only text content
-- `prefers-reduced-motion` disables animations for users that have this preference turned on
+- Astro 5.13.0+
+- Tailwind CSS 4.1+ support
+- TypeScript integration with path aliases for easier imports and content collections support
+- Prettier integration with `prettier-plugin-astro` and `prettier-plugin-tailwind`
+- ESLint integration with strict accessibility settings for `eslint-plugin-jsx-a11y`
+- Markdown and MDX support with comprehensive examples and components
+- Modern OKLCH color system with automatic palette generation from primary/secondary colors
+- Atkinson Hyperlegible font for improved readability and accessibility
+- Lucide icon set via `astro-icon` for consistent, friendly icons
+- Semantic HTML structure with `Button`, `Link` and `Heading` components
+- Excellent Lighthouse/PageSpeed scores
+- Accessible landmarks such as `header`, `main`, `footer`, `section` and `nav`
 - Outline focus indicator which works on dark and light backgrounds
-- [Accessible Astro Components](https://github.com/incluud/accessible-astro-components) package comes preinstalled with extra components such as Accordions, Modals and Notifications
-- Nate Moore's awesome [Astro Icon](https://github.com/natemoo-re/astro-icon) package is also preinstalled which can be applied to different use cases
+- Several `aria` attributes which provide a better experience for screen reader users
+- `[...page].astro` and `[post].astro` demonstrate the use of dynamic routes and provide a basic blog with breadcrumbs and pagination
+- `404.astro` provides a custom 404 error page which you can adjust to your needs
+- `Header.astro` component with optimized accessibility and design
+- `Footer.astro` component with informative content and links
+- `SkipLinks.astro` component to skip to either the main menu or the main content
+- `Navigation.astro` component with keyboard accessible (dropdown) navigation and highlighted menu item option
+- `ResponsiveToggle.astro` component with accessible responsive toggle functionality
+- `DarkMode.astro` component toggle with accessible button and a user system preferred color scheme setting
+- `SiteMeta.astro` SEO component for setting custom metadata on different pages
+- `.sr-only` utility class for screen reader only text content (hides text visually)
+- `prefers-reduced-motion` disables animations for users that have this preference turned on
+- Components including `ColorContrast.astro`, `BlockQuote.astro`, `BreakoutImage.astro`, `Logo.astro`, `SocialShares.astro`, `PageHeader.astro`, `FeaturedPosts.astro`, and `FeaturedProjects.astro`
+- Enhanced form components with comprehensive validation: `Form`, `Input`, `Textarea`, `Checkbox`, `Radio`, and `Fieldset` with WCAG 2.2 compliance
+- Automatic form validation with custom patterns, error handling, and screen reader support
+- Blog and portfolio pages with featured images, author details, social sharing, and breakout images
+- Contact page with comprehensive form validation showcase and accessibility demonstrations
+- Thank-you page for form submissions with interactive feedback
+- Accessibility Statement template page
+- Color Contrast Checker interactive page
+- Comprehensive sitemap page with organized navigation and automatic XML sitemap generation via `@astrojs/sitemap`
+- Enhanced accessible-components showcase page with expanded component demonstrations
+- Smooth micro-interactions and animations on hover, open and close states (respecting reduced motion preferences)
+- Comprehensive SCSS utility classes
+- CSS with logical properties and custom properties
+- Accessible button and hyperlink styling with clear focus states
+- Styled `<kbd>` element for keyboard shortcut documentation
 
 ## Getting started
 
@@ -53,7 +71,7 @@ Clone this theme locally and run any of the following commands in your terminal:
 ## Accessible Astro projects
 
 - [Accessible Astro Starter](https://github.com/incluud/accessible-astro-starter): Fully accessible starter for kickstarting Astro projects, with Tailwind.
-- [Accessible Astro Components](https://github.com/incluud/accessible-astro-components/): Library of reusable, accessible components build for Astro.
+- [Accessible Astro Components](https://github.com/incluud/accessible-astro-components/): Library of reusable, accessible components built for Astro.
 - [Accessible Astro Dashboard](https://github.com/incluud/accessible-astro-dashboard/): User-friendly dashboard interface with a login screen and widgets.
 - [Accessible Astro Docs](https://github.com/incluud/accessible-astro-docs): Comprehensive documentation for all Accessible Astro projects.
 - [Color Contrast Checker](https://github.com/incluud/color-contrast-checker): WCAG-compliant color contrast checker with design system token generation.
@@ -64,9 +82,9 @@ Check out our [roadmap](https://github.com/orgs/incluud/projects/4/views/1) to s
 
 We welcome contributions to improve the documentation! You can help by:
 
-1. [Filing an issue](https://github.com/incluud/accessible-astro-dashboard/issues)
-2. [Submitting a pull request](https://github.com/incluud/accessible-astro-dashboard/pulls)
-3. [Starting a discussion](https://github.com/incluud/accessible-astro-dashboard/discussions)
+1. [Filing an issue](https://github.com/incluud/accessible-astro-starter/issues)
+2. [Submitting a pull request](https://github.com/incluud/accessible-astro-starter/pulls)
+3. [Starting a discussion](https://github.com/incluud/accessible-astro-starter/discussions)
 4. [Supporting on Open Collective](https://opencollective.com/incluud)
 
 ## Support this project
@@ -81,12 +99,13 @@ We want to express our heartfelt gratitude to everyone who contributes to making
 
 - **The Astro team** for creating an amazing static site generator and the wonderful Starlight theme
 - **Our contributors** who dedicate their time and expertise to improve these tools
+- [**Niek Derksen**](https://niekderksen.nl) for conducting comprehensive accessibility audits to ensure WCAG compliance
 - **Our sponsors** who help make this project sustainable
 - **The web community** for embracing and promoting web accessibility
 - **You, the developer** for choosing to make your projects more accessible
 
 <a href="https://github.com/incluud/accessible-astro-starter/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=incluud/accessible-astro-dashboard" />
+  <img src="https://contrib.rocks/image?repo=incluud/accessible-astro-starter" />
 </a><br /><br />
 
 Together, we're not just building documentation or components – we're creating a more inclusive and accessible web for everyone. Every contribution, whether it's code, documentation, bug reports, or feedback, helps move us closer to this goal. ✨

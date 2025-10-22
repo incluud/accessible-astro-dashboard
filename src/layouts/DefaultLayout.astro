@@ -1,159 +1,37 @@
 ---
-import '../assets/scss/globals.scss'
-import Navigation from '../components/Navigation.astro'
-import { DarkMode, SkipLink } from 'accessible-astro-components'
-import { Icon } from 'astro-icon/components'
+import '../styles/tailwind.css'
+import '../assets/scss/index.scss'
+import SiteMeta from '@components/SiteMeta.astro'
+import Navigation from '@components/Navigation.astro'
+import { ClientRouter } from 'astro:transitions'
 
-const {title} = Astro.props
-let subtitle = 'Accessible Astro Dashboard'
+const {
+  title = 'Accessible Astro',
+  description = 'A starter project with accessibility features using Astro static site builder. Contains accessible landmarks, skip links, a dark mode color scheme, better focus outline and keyboard menu navigation.',
+  url = Astro.site,
+  image = 'social-preview-image.png',
+  author = 'Incluud',
+} = Astro.props
 ---
 
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <!-- favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- google fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <SiteMeta title={title} description={description.substring(0, 100)} url={url} image={image} author={author} />
 
-    <!-- open graph -->
-    <meta property="og:title" content="Accessible Astro Dashboard">
-    <meta property="og:description" content="An Accessible Dashboard Theme for Astro including a login page, a dashboard page and several other pages and components.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dashboard.accessible-astro.dev">
-    <meta property="og:image" content="/social-preview-image.png">
-
-    <!-- page title -->
-    <title>{title} - {subtitle}</title>
+    <!-- Enable Astro View Transitions for all browsers -->
+    <ClientRouter />
   </head>
   <body>
-    <header>
-      <SkipLink />
-    </header>
-    <div class="ui-controls">
-      <DarkMode />
-    </div>
-    <div class="admin-interface">
-      <Navigation>
-        <li class="menu-item">
-          <a href="/">
-            <Icon name="lucide:house" /> 
-            <span class="sr-only">Dashboard</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="/products/">
-            <Icon name="lucide:shopping-cart" /> 
-            <span class="sr-only">Products</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="/users/">
-            <Icon name="lucide:users" /> 
-            <span class="sr-only">Users</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="/messages/">
-            <Icon name="lucide:messages-square" /> 
-            <span class="sr-only">Messages</span>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="/media/">
-            <Icon name="lucide:image" /> 
-            <span class="sr-only">Media</span>
-          </a>
-        </li>
-      </Navigation>    
-      <main id="main-content">
-        <slot />
-      </main>
-    </div>
+    <Navigation />
+    <main id="main-content" transition:animate="fade">
+      <slot />
+    </main>
   </body>
 </html>
-
-
-<style lang="scss">
-  @use '../assets/scss/base/breakpoint' as *;
-
-  .ui-controls {
-    position: absolute;
-    top: 1rem;
-    right: 3.5rem;
-
-    @include breakpoint(medium) {
-      right: 1.15rem;
-    }
-  }
-
-  .admin-interface {
-    @include breakpoint(medium) {
-      display: grid;
-      grid-template-columns: 1fr auto;
-    }
-
-    main {
-      padding: 2rem;
-
-      @include breakpoint(medium) {
-        margin-left: 60px;
-        padding: 6rem;
-      }
-    }
-  }
-</style>
-
-<style lang="scss" is:global>
-  @use "../assets/scss/base/breakpoint" as *;
-  @use "../assets/scss/base/outline" as *;
-
-  .darkmode-toggle {
-    padding: 0;
-    border: none;
-
-    svg {
-      width: 25px;
-
-      @include breakpoint(medium) {
-        width: 30px;
-        
-        path {
-          fill: var(--secondary-500);
-        }
-      }
-    
-      path {
-        transition: fill 0.2s ease-in-out;
-      }
-    }
-
-    &:hover {
-      svg path {
-        fill: var(--primary-400);
-      }
-    }
-
-    &:focus {
-      @include outline;
-    }
-  }
-
-  .darkmode .darkmode-toggle {
-    svg path {
-      fill: var(--secondary-100);
-    }
-
-    &:hover {
-      svg path {
-        fill: var(--primary-400);
-      }
-    }
-  }
-</style>

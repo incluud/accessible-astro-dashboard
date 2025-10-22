@@ -10,12 +10,8 @@ import { Icon } from 'astro-icon/components'
     <div class="login">
       <div class="login__inner reveal h-screen">
         <div class="inner__brand">
-          <div class="bg-neutral-900 radius-large space-8">
-            <img
-              class="brand__logo radius-large"
-              src="/astro-logo.svg"
-              alt=""
-            >
+          <div class="radius-large space-8 bg-neutral-900">
+            <img class="brand__logo radius-large" src="/astro-logo.svg" alt="" />
           </div>
           <div class="brand__text">
             <span>Astro Dashboard</span>
@@ -38,97 +34,95 @@ import { Icon } from 'astro-icon/components'
           <p><em>Build fast dashboards, faster.</em></p>
         </div>
       </div>
-      <div class="login__background h-screen" />
+      <div class="login__background h-screen"></div>
     </div>
   </section>
 </LoginLayout>
 
 <style lang="scss">
   @use '../assets/scss/base/breakpoint' as *;
-  @use '../assets/scss/base/size' as *;
-  @use '../assets/scss/base/space' as *;
 
-  .login {
-    display: grid;
+  // .login {
+  //   display: grid;
 
-    @include breakpoint(medium) {
-      grid-template-columns: 550px 2fr;
-    }
+  //   @include breakpoint(m) {
+  //     grid-template-columns: 550px 2fr;
+  //   }
 
-    .login__inner {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: $space-48;
-      padding: $space-24;
-      z-index: 1;
-      
-      @include breakpoint(medium) {
-        padding: $space-48 $space-96;
-        box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
-      }
-    }
+  //   .login__inner {
+  //     display: flex;
+  //     flex-direction: column;
+  //     justify-content: space-between;
+  //     gap: $space-48;
+  //     z-index: 1;
+  //     padding: $space-24;
 
-    .inner__brand {
-      display: flex;
-      align-items: center;
-      gap: $space-16;
-    }
+  //     @include breakpoint(m) {
+  //       box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
+  //       padding: $space-48 $space-96;
+  //     }
+  //   }
 
-    .brand__logo {
-      max-width: 50px;
-    }
+  //   .inner__brand {
+  //     display: flex;
+  //     align-items: center;
+  //     gap: $space-16;
+  //   }
 
-    .brand__text {
-      display: flex;
-      flex-direction: column;
-      gap: $space-2;
+  //   .brand__logo {
+  //     max-width: 50px;
+  //   }
 
-      > :first-child {
-        font-weight: bold;
-        @include size-20;
-      }
+  //   .brand__text {
+  //     display: flex;
+  //     flex-direction: column;
+  //     gap: $space-2;
 
-      > :last-child {
-        @include size-14;
-      }
-    }
+  //     > :first-child {
+  //       font-weight: bold;
+  //       @include size-20;
+  //     }
 
-    .login__background {
-      display: none;
-      background-color: #000;
-      background-image: url("/login-background.webp");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+  //     > :last-child {
+  //       @include size-14;
+  //     }
+  //   }
 
-      @include breakpoint(medium) {
-        display: block;
-      }
-    }
+  //   .login__background {
+  //     display: none;
+  //     background-image: url('/login-background.webp');
+  //     background-position: center;
+  //     background-size: cover;
+  //     background-repeat: no-repeat;
+  //     background-color: #000;
 
-    .reveal {
-      animation: reveal 0.3s ease-in;
-    }
+  //     @include breakpoint(m) {
+  //       display: block;
+  //     }
+  //   }
 
-    .login__footer {
-      padding-bottom: $space-24;
+  //   .reveal {
+  //     animation: reveal 0.3s ease-in;
+  //   }
 
-      @include breakpoint(medium) {
-        padding-bottom: 0;
-      }
-    }
-  }
+  //   .login__footer {
+  //     padding-bottom: $space-24;
 
-  @keyframes reveal {
-    0% {
-      opacity: 0;
-      transform: translateY(-1rem);
-    }
+  //     @include breakpoint(m) {
+  //       padding-bottom: 0;
+  //     }
+  //   }
+  // }
 
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  // @keyframes reveal {
+  //   0% {
+  //     transform: translateY(-1rem);
+  //     opacity: 0;
+  //   }
+
+  //   100% {
+  //     transform: translateY(0);
+  //     opacity: 1;
+  //   }
+  // }
 </style>

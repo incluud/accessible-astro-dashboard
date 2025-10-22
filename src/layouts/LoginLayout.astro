@@ -1,33 +1,27 @@
 ---
-import '../assets/scss/globals.scss'
+import '../styles/tailwind.css'
+import '../assets/scss/index.scss'
+import SiteMeta from '@components/SiteMeta.astro'
 
-const {title} = Astro.props
-let subtitle = 'Accessible Astro Dashboard'
+const {
+  title = 'Accessible Astro Dashboard',
+  description = 'An Accessible Dashboard Theme for Astro including a login page, a dashboard page and several other pages and components.',
+  url = Astro.site,
+  image = '/social-preview-image.png',
+  author = 'Incluud',
+} = Astro.props
 ---
 
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <!-- favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- google fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-
-    <!-- open graph -->
-    <meta property="og:title" content="Accessible Astro Dashboard">
-    <meta property="og:description" content="An Accessible Dashboard Theme for Astro including a login page, a dashboard page and several other pages and components.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dashboard.accessible-astro.dev">
-    <meta property="og:image" content="/social-preview-image.png">
-
-    <!-- page title -->
-    <title>{title} - {subtitle}</title>
+    <SiteMeta {...{ title, description, url, image, author }} />
   </head>
   <body>
     <main id="main-content">

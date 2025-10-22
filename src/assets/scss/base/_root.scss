@@ -1,32 +1,150 @@
-// | -------------------------------------------------------------
-// | Root
-// | -------------------------------------------------------------
-
-@use "color" as *;
-
 :root {
-  @each $color, $shades in $colors {
-    @each $shade, $value in $shades {
-      --#{$color}-#{$shade}: #{$value};
-    }
-  }
+  color-scheme: light;
+  interpolate-size: allow-keywords;
+
+  // brand colors (change these to your own brand colors)
+  --brand-primary: #d648ff;
+  --brand-secondary: #00d1b7;
+  --brand-neutral: #b9bec4;
+
+  // pallet brand
+  --color-primary-100: oklch(from var(--brand-primary) 90% c h);
+  --color-primary-200: oklch(from var(--brand-primary) 80% c h);
+  --color-primary-300: oklch(from var(--brand-primary) 70% c h);
+  --color-primary-400: oklch(from var(--brand-primary) 60% c h);
+  --color-primary-500: oklch(from var(--brand-primary) 50% c h);
+  --color-secondary-100: oklch(from var(--brand-secondary) 90% c h);
+  --color-secondary-200: oklch(from var(--brand-secondary) 80% c h);
+  --color-secondary-300: oklch(from var(--brand-secondary) 70% c h);
+  --color-secondary-400: oklch(from var(--brand-secondary) 60% c h);
+  --color-secondary-500: oklch(from var(--brand-secondary) 50% c h);
+
+  // pallet neutral
+  --color-neutral-100: oklch(from var(--brand-neutral) 100% 0 0);
+  --color-neutral-200: oklch(from var(--brand-neutral) 95% c h);
+  --color-neutral-300: oklch(from var(--brand-neutral) 90% c h);
+  --color-neutral-400: oklch(from var(--brand-neutral) 85% c h);
+  --color-neutral-500: oklch(from var(--brand-neutral) 80% c h);
+  --color-neutral-600: oklch(from var(--brand-neutral) 60% c h);
+  --color-neutral-700: oklch(from var(--brand-neutral) 40% c h);
+  --color-neutral-800: oklch(from var(--brand-neutral) 30% c h);
+  --color-neutral-900: oklch(from var(--brand-neutral) 15% c h);
+
+  // color scheme
+  --foreground-color: light-dark(var(--color-neutral-800), var(--color-neutral-100));
+  --background-color: light-dark(var(--color-neutral-100), var(--color-neutral-900));
+  --icon-color: light-dark(var(--color-neutral-800), var(--color-neutral-100));
+  --link-color: light-dark(var(--color-primary-400), var(--color-secondary-100));
+  --link-hover-color: light-dark(var(--color-primary-300), var(--color-secondary-200));
+  --border-color: light-dark(var(--color-neutral-900), var(--color-neutral-100));
+  --border-color-subtle: light-dark(var(--color-neutral-300), var(--color-neutral-800));
+  --text-decoration-color: light-dark(var(--color-neutral-700), var(--color-neutral-100));
+  --text-decoration-color-hover: light-dark(var(--color-neutral-100), var(--color-neutral-200));
+
+  // theme settings
   --radius-small: 3px;
   --radius-large: 6px;
   --gap-default: 2rem;
   --font-measure: 70ch;
-  --font-family-default: "Open Sans", sans-serif;
-  --font-family-special: "Open Sans", sans-serif;
-  --font-color: var(--neutral-900);
-  --action-color: var(--secondary-500);
-  --background: var(--neutral-200);
-  --primary-background: var(--primary-100);
-  --neutral-background: var(--neutral-300);
+  --font-family-default: 'Atkinson Hyperlegible', sans-serif;
+  --font-family-special: 'Atkinson Hyperlegible', sans-serif;
+
+  // font families
+  --font-heading: var(--font-family-special);
+  --font-body: var(--font-family-default);
+
+  // font sizes
+  // @link https://utopia.fyi/type/calculator?c=320,16,1.2,1240,18,1.25,6,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12
+  --font-size--2: clamp(0.6944rem, 0.6855rem + 0.0446vw, 0.72rem);
+  --font-size--1: clamp(0.8331rem, 0.8099rem + 0.1163vw, 0.9rem);
+  --font-size-0: clamp(1rem, 0.9565rem + 0.2174vw, 1.125rem);
+  --font-size-1: clamp(1.2rem, 1.1283rem + 0.3587vw, 1.4063rem);
+  --font-size-2: clamp(1.44rem, 1.3293rem + 0.5533vw, 1.7581rem);
+  --font-size-3: clamp(1.7281rem, 1.5649rem + 0.8163vw, 2.1975rem);
+  --font-size-4: clamp(2.0738rem, 1.8396rem + 1.1707vw, 2.7469rem);
+  --font-size-5: clamp(2.4881rem, 2.1594rem + 1.6435vw, 3.4331rem);
+  --font-size-6: clamp(2.9863rem, 2.5323rem + 2.2696vw, 4.2913rem);
+  --font-size-7: clamp(3.5836rem, 2.9667rem + 3.0674vw, 5.3544rem);
+  --font-size-8: clamp(4.2999rem, 3.5601rem + 3.6935vw, 6.6856rem);
+
+  // space
+  // @link https://utopia.fyi/space/calculator?c=320,16,1.2,1240,18,1.25,6,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,&g=s,l,xl,12
+  --space-5xs: clamp(0.1rem, 0.0931rem + 0.1087vw, 0.125rem);
+  --space-4xs: clamp(0.125rem, 0.1131rem + 0.1087vw, 0.1563rem);
+  --space-3xs: clamp(0.25rem, 0.2283rem + 0.1087vw, 0.3125rem);
+  --space-2xs: clamp(0.5rem, 0.4783rem + 0.1087vw, 0.5625rem);
+  --space-xs: clamp(0.75rem, 0.7065rem + 0.2174vw, 0.875rem);
+  --space-s: clamp(1rem, 0.9565rem + 0.2174vw, 1.125rem);
+  --space-m: clamp(1.5rem, 1.4348rem + 0.3261vw, 1.6875rem);
+  --space-l: clamp(2rem, 1.913rem + 0.4348vw, 2.25rem);
+  --space-xl: clamp(3rem, 2.8696rem + 0.6522vw, 3.375rem);
+  --space-2xl: clamp(4rem, 3.8261rem + 0.8696vw, 4.5rem);
+  --space-3xl: clamp(6rem, 5.7391rem + 1.3043vw, 6.75rem);
+  --space-4xl: clamp(8rem, 7.6522rem + 1.7403vw, 8.25rem);
+  --space-5xl: clamp(10rem, 9.5652rem + 2.1741vw, 10.5rem);
+
+  // grid
+  // https://utopia.fyi/grid/calculator?c=320,18,1.2,1240,20,1.25,5,2,&s=0.75%7C0.5%7C0.25,1.5%7C2%7C3%7C4%7C6,s-l&g=s,l,xl,12
+  --grid-max-width: 90rem;
+  --grid-gutter: var(--space-s-l, clamp(1.125rem, 0.6467rem + 2.3913vw, 2.5rem));
+  --grid-columns: 12;
+
+  // border radius
+  --radius-xs: 0.125rem;
+  --radius-s: 0.25rem;
+  --radius-m: 0.5rem;
+  --radius-l: 0.75rem;
+  --radius-h: 1rem;
+
+  // elevations
+  --elevation-1: 0 1px 3px rgba(0 0 0 / 0.12);
+  --elevation-2: 0 3px 6px rgba(0 0 0 / 0.15);
+  --elevation-3: 0 10px 20px rgba(0 0 0 / 0.15);
+  --elevation-4: 0 15px 25px rgba(0 0 0 / 0.15);
+  --elevation-5: 0 20px 40px rgba(0 0 0 / 0.5);
+
+  // z-index
+  --z-index--1: -1;
+  --z-index-0: 0;
+  --z-index-1: 10;
+  --z-index-2: 20;
+  --z-index-3: 30;
+  --z-index-4: 40;
+  --z-index-5: 50;
+  --z-index-6: 60;
+  --z-index-7: 70;
+  --z-index-8: 80;
+  --z-index-9: 90;
+  --z-index-10: 100;
+
+  // aspects
+  --ratio-square: 1;
+  --ratio-landscape: 4/3;
+  --ratio-portrait: 3/4;
+  --ratio-widescreen: 16/9;
+  --ratio-ultrawide: 18/5;
+
+  // animations
+  --cubic-bezier: cubic-bezier(0.1, 0.1, 0, 1);
+  --animation-speed-slow: 0.4s;
+  --animation-speed-medium: 0.3s;
+  --animation-speed-fast: 0.2s;
+  --animation-speed-instant: 0.1s;
+
+  // misc
+  --line-clamp: 3;
+  --target-size-min: 24px;
+  --target-size-max: 44px;
+  --backdrop-color: hsl(0deg 100% 0% / 0.75);
+  --backdrop-blur: blur(3px);
+
+  // kbd
+  --kbd-color-text: light-dark(var(--color-gray-200), var(--color-gray-800));
+  --kbd-color-border: light-dark(var(--color-gray-700), var(--color-gray-300));
+  --kbd-color-background: light-dark(var(--color-gray-1000), var(--color-gray-200));
 }
 
+// dark color scheme overrides
 .darkmode {
-  --font-color: var(--neutral-100);
-  --action-color: var(--secondary-100);
-  --background: var(--neutral-800);
-  --primary-background: var(--primary-500);
-  --neutral-background: var(--neutral-900);
+  color-scheme: dark;
 }

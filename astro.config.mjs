@@ -1,18 +1,15 @@
 import { defineConfig } from 'astro/config'
 import { fileURLToPath } from 'url'
-import mdx from '@astrojs/mdx'
 import compress from 'astro-compress'
 import icon from 'astro-icon'
+import mdx from '@astrojs/mdx'
 import tailwindcss from '@tailwindcss/vite'
-import netlify from '@astrojs/netlify'
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
-  adapter: netlify(),
   compressHTML: true,
-  site: 'https://accessible-astro-dashboard.incluud.dev',
-  integrations: [mdx(), icon(), compress()],
+  site: 'https://accessible-astro-starter.incluud.dev',
+  integrations: [compress(), icon(), mdx()],
   vite: {
     css: {
       preprocessorOptions: {
@@ -32,6 +29,8 @@ export default defineConfig({
         '@content': fileURLToPath(new URL('./src/content', import.meta.url)),
         '@pages': fileURLToPath(new URL('./src/pages', import.meta.url)),
         '@public': fileURLToPath(new URL('./public', import.meta.url)),
+        '@post-images': fileURLToPath(new URL('./public/posts', import.meta.url)),
+        '@project-images': fileURLToPath(new URL('./public/projects', import.meta.url)),
       },
     },
   },

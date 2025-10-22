@@ -1,48 +1,8 @@
 ---
-import DefaultLayout from '../layouts/DefaultLayout.astro'
-import DashboardWidget from '../components/DashboardWidget.astro';
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+import { Heading } from 'accessible-astro-components'
 ---
 
 <DefaultLayout title="Dashboard">
-  <section>
-    <h1>Welcome Astronaut 🧑‍🚀</h1><br>
-    <p class="size-20">Build fast dashboards, faster (and accessible).</p>
-  </section>
-  <section class="margin-32">
-    <div class="space-content">
-      <div class="contents">
-        <h2>Widgets</h2>
-        <p id="current-time" class="size-12"></p>
-      </div>
-      <div class="grid small-grid-1 medium-grid-2 large-grid-3 equal-height">
-        <DashboardWidget />
-        <DashboardWidget
-          number="+33"
-          title="Products sold"
-        />
-        <DashboardWidget
-          number="-120"
-          title="Images deleted"
-          type="error"
-        />
-        <div class="radius-large space-96" style="border: 4px dashed grey;"></div>
-        <div class="radius-large space-96" style="border: 4px dashed grey;"></div>
-        <div class="radius-large space-96" style="border: 4px dashed grey;"></div>
-        <div class="radius-large space-96" style="border: 4px dashed grey;"></div>
-        <div class="radius-large space-96" style="border: 4px dashed grey;"></div>
-        <div class="radius-large space-96" style="border: 4px dashed grey;"></div>
-        <div class="radius-large space-96" style="border: 4px dashed grey;"></div>
-        <div class="radius-large space-96" style="border: 4px dashed grey;"></div>
-        <div class="radius-large space-96" style="border: 4px dashed grey;"></div>
-      </div>
-    </div>
-  </section>
+  <Heading level="h1">Dashboard</Heading>
 </DefaultLayout>
-
-<script>
-  const date = new Date()
-  const currentTime = document.querySelector('#current-time') as HTMLElement
-  if (currentTime) {
-    currentTime.innerHTML = `<em>${date.toDateString()}</em>`
-  }
-</script>

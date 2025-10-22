@@ -1,27 +1,24 @@
-// | -------------------------------------------------------------
-// | Breakpoint
-// | -------------------------------------------------------------
-
-@use "sass:map";
-
 $breakpoints: (
-  "default": 0,
-  "small": 24em,
-  "medium": 48em,
-  "large": 75em
+  'default': 0,
+  'xs': 320px,
+  's': 480px,
+  'm': 768px,
+  'l': 1024px,
+  'xl': 1280px,
+  '2xl': 1536px,
+  'nav': 1000px,
 ) !default;
 
 @mixin breakpoint($breakpoint) {
-  @if map.has-key($breakpoints, $breakpoint) {
-    @media (min-width: map.get($breakpoints, $breakpoint)) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
       @content;
     }
-  } @else if (type-of($breakpoint) == number) {
+  } @else if (type_of($breakpoint) == number) {
     @media (min-width: #{$breakpoint}px) {
       @content;
     }
-  }
-  @else {
-    @error "Not a correct value, check _base-breakpoints for availible values.";
+  } @else {
+    @error "Not a correct value";
   }
 }
