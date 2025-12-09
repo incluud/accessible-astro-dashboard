@@ -1,7 +1,6 @@
 ---
-import { Link } from 'accessible-astro-components'
 import { Image } from 'astro:assets'
-import logo from '../assets/img/logo.svg'
+import logo from '@assets/img/logo.svg'
 
 /**
  * Logo Component
@@ -14,12 +13,25 @@ interface Props {
    * @default 'eager'
    */
   loading?: 'eager' | 'lazy'
+  /**
+   * The title of the logo
+   * @default 'Accessible Astro'
+   */
+  title?: string
+  /**
+   * The description of the logo
+   * @default 'Dashboard theme for Astro'
+   */
+  description?: string
 }
 
-const { loading = 'eager' }: Props = Astro.props
+const { loading = 'eager', title = 'Accessible Astro', description = 'Dashboard theme for Astro' }: Props = Astro.props
 ---
 
-<Link href="/" class="flex items-center gap-2">
-  <Image src={logo} alt="Accessible Astro Logo" width="47" height="37" loading={loading} />
-  <span class="font-bold">Accessible Astro</span>
-</Link>
+<div class="logo flex items-center gap-3">
+  <Image src={logo} alt="Accessible Astro Logo" width="46" height="46" loading={loading} />
+  <p class="flex flex-col">
+    <span class="text-base font-bold">{title}</span>
+    <span class="text-sm">{description}</span>
+  </p>
+</div>

@@ -1,5 +1,504 @@
 ---
-import { DarkMode } from 'accessible-astro-components'
+import Logo from './Logo.astro'
+import { Avatar, Link } from 'accessible-astro-components'
+import { Icon } from 'astro-icon/components'
+
+interface Props {
+  /**
+   * Whether to float the navigation
+   * @default false
+   */
+  isFloating?: boolean
+}
+
+const { isFloating = false } = Astro.props
+
+const menuUpperItems = [
+  {
+    label: 'Home',
+    icon: 'lucide:house',
+    href: '/',
+  },
+  {
+    label: 'Users',
+    icon: 'lucide:users',
+    href: '/users',
+  },
+  {
+    label: 'Projects',
+    icon: 'lucide:folder-tree',
+    href: '/projects',
+  },
+  {
+    label: 'Messages',
+    icon: 'lucide:mail',
+    href: '/messages',
+  },
+  {
+    label: 'Media',
+    icon: 'lucide:image',
+    href: '/media',
+  },
+]
+
+const menuLowerItems = [
+  {
+    label: 'Notifications',
+    icon: 'lucide:bell',
+    href: '/notifications',
+  },
+  {
+    label: 'Settings',
+    icon: 'lucide:settings',
+    href: '/settings',
+  },
+  {
+    label: 'Logout',
+    icon: 'lucide:log-out',
+    href: '/logout',
+  },
+]
+
+const activeMenuItem = Astro.url.pathname
+  ? menuUpperItems.find((item) => item.href === Astro.url.pathname) ||
+    menuLowerItems.find((item) => item.href === Astro.url.pathname)
+  : null
+
+const user = {
+  name: 'Mark Teekman',
+  role: 'Admin',
+}
 ---
 
-<DarkMode />
+<div class="mobile-menu space-between flex items-center gap-2 px-4 py-2 md:hidden">
+  <Logo />
+  <button
+    aria-expanded="false"
+    aria-haspopup="true"
+    class="flex items-center gap-2 rounded-lg border-1 border-neutral-600 p-2"
+  >
+    <span>Menu</span>
+    <Icon aria-hidden="true" name="lucide:menu" size="1.5rem" />
+    <Icon aria-hidden="true" name="lucide:x" size="1.5rem" />
+  </button>
+</div>
+<nav
+  aria-label="Main"
+  class:list={['space-between shrink-0 flex-col gap-2', { 'is-floating md:rounded-lg': isFloating }]}
+>
+  <ul class="menu flex flex-col gap-2">
+    <li class="logo">
+      <Logo />
+    </li>
+    <li class="toggle">
+      <button aria-expanded="false">
+        <Icon aria-hidden="true" name="lucide:panel-left-open" size="1.5rem" />
+        <Icon aria-hidden="true" name="lucide:panel-left-close" size="1.5rem" />
+        <span>Expand</span>
+      </button>
+    </li>
+    <li class="search">
+      <button aria-expanded="false">
+        <Icon aria-hidden="true" name="lucide:search" size="1.5rem" />
+        <span>Search</span>
+      </button>
+    </li>
+    {
+      menuUpperItems.map((item) => (
+        <li class:list={activeMenuItem === item ? 'is-active' : ''}>
+          <Link href={item.href}>
+            <Icon aria-hidden="true" name={item.icon} size="1.5rem" />
+            <span>{item.label}</span>
+          </Link>
+        </li>
+      ))
+    }
+  </ul>
+  <ul class="menu flex flex-col gap-2 rounded-lg">
+    {
+      menuLowerItems.map((item) => (
+        <li>
+          <Link href={item.href}>
+            <Icon aria-hidden="true" name={item.icon} size="1.5rem" />
+            <span>{item.label}</span>
+          </Link>
+        </li>
+      ))
+    }
+    <li class="user">
+      <Avatar title={user.name} subtitle={user.role} size="46px" />
+    </li>
+  </ul>
+</nav>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const mobileMenu = document.querySelector('.mobile-menu button')
+    if (!mobileMenu) return
+
+    const openMobileMenu = () => {
+      mobileMenu.setAttribute('aria-expanded', 'true')
+      mobileMenu.querySelector('span:first-of-type')!.textContent = 'Close'
+    }
+
+    const closeMobileMenu = () => {
+      mobileMenu.setAttribute('aria-expanded', 'false')
+      mobileMenu.querySelector('span:first-of-type')!.textContent = 'Menu'
+    }
+
+    mobileMenu.addEventListener('click', () => {
+      const isExpanded = mobileMenu.getAttribute('aria-expanded') === 'true'
+      !isExpanded ? openMobileMenu() : closeMobileMenu()
+    })
+
+    const mediaQuery = window.matchMedia('(min-width: 768px)')
+    const handleViewportChange = ({ matches }: { matches: boolean }) => {
+      if (matches) {
+        closeMobileMenu()
+      }
+    }
+
+    // Initialize on page load
+    handleViewportChange({ matches: mediaQuery.matches })
+
+    // Listen for viewport changes
+    mediaQuery.addEventListener('change', handleViewportChange)
+  })
+</script>
+
+<script is:inline>
+  const initializeNavigation = () => {
+    const mainNavigation = document.querySelector('nav')
+    if (!mainNavigation) return
+
+    const toggleButton = mainNavigation.querySelector('.toggle button[aria-expanded]')
+    if (!toggleButton) return
+
+    const savedNavigationState = localStorage.getItem('navigation-expanded')
+
+    const expandMenu = () => {
+      toggleButton.setAttribute('aria-expanded', 'true')
+      toggleButton.querySelector('span').textContent = 'Collapse'
+      mainNavigation.classList.add('is-expanded')
+    }
+
+    const collapseMenu = () => {
+      toggleButton.setAttribute('aria-expanded', 'false')
+      toggleButton.querySelector('span').textContent = 'Expand'
+      mainNavigation.classList.remove('is-expanded')
+    }
+
+    if (savedNavigationState === 'true') {
+      expandMenu()
+    }
+
+    // Set up toggle listener only once
+    if (!toggleButton.dataset.listenerAttached) {
+      toggleButton.dataset.listenerAttached = 'true'
+
+      toggleButton.addEventListener('click', () => {
+        const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true'
+
+        if (!isExpanded) {
+          expandMenu()
+          localStorage.setItem('navigation-expanded', 'true')
+        } else {
+          collapseMenu()
+          localStorage.setItem('navigation-expanded', 'false')
+        }
+      })
+    }
+
+    const mediaQuery = window.matchMedia('(max-width: 900px)')
+    const handleViewportChange = ({ matches }) => {
+      if (matches) {
+        collapseMenu()
+      }
+    }
+
+    handleViewportChange({ matches: mediaQuery.matches })
+    mediaQuery.addEventListener('change', handleViewportChange)
+  }
+
+  // Initialize on first load
+  initializeNavigation()
+
+  // Re-initialize after each page swap (before transition animation completes)
+  document.addEventListener('astro:after-swap', initializeNavigation)
+</script>
+
+<style lang="scss">
+  @use '../assets/scss/base/breakpoint' as *;
+  @use '../assets/scss/base/mixins' as *;
+
+  :root {
+    --mobile-menu-height: 64px;
+  }
+
+  .mobile-menu {
+    position: relative;
+    z-index: var(--z-index-2);
+    background-color: var(--color-neutral-800);
+    inline-size: 100%;
+    block-size: var(--mobile-menu-height);
+
+    button {
+      svg:first-of-type {
+        display: block;
+      }
+
+      svg:last-of-type {
+        display: none;
+      }
+
+      &[aria-expanded='true'] {
+        svg:first-of-type {
+          display: none;
+        }
+
+        svg:last-of-type {
+          display: block;
+        }
+      }
+    }
+
+    + nav {
+      @include breakpoint('m', 'max') {
+        display: none;
+        position: absolute;
+        translate: 0 -100%;
+        opacity: 0;
+        z-index: var(--z-index-1);
+        inset: 0 0 auto 0;
+
+        @include breakpoint(m) {
+          display: flex;
+          translate: 0 0;
+          opacity: 1;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+          transition-behavior: allow-discrete;
+          transition-duration: var(--animation-speed-instant);
+          transition-property: display, opacity, translate;
+          transition-timing-function: var(--cubic-bezier);
+        }
+
+        :global(.logo),
+        :global(.toggle) {
+          display: none;
+        }
+
+        :global(.avatar) {
+          padding: 0 var(--space-s) var(--space-s) var(--space-s);
+
+          :global(.content p) {
+            opacity: 1;
+            max-inline-size: fit-content;
+          }
+        }
+
+        a,
+        button {
+          display: flex;
+          align-items: center;
+          gap: var(--space-2xs);
+          padding: var(--space-s);
+
+          &::before {
+            border-radius: 0;
+          }
+
+          &:where(:hover, :focus-visible) {
+            &::before {
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+    }
+
+    &:has(button[aria-expanded='true']) {
+      + nav {
+        display: flex;
+        position: absolute;
+        translate: 0 var(--mobile-menu-height);
+        opacity: 1;
+        z-index: var(--z-index-1);
+        inset: 0 0 auto 0;
+
+        @starting-style {
+          translate: 0 -100%;
+          opacity: 0;
+        }
+      }
+    }
+  }
+
+  nav {
+    --space-around: var(--space-l);
+    --menu-width: 64px;
+
+    display: none;
+    transition: inline-size var(--animation-speed-fast) var(--cubic-bezier);
+    background-color: var(--color-neutral-800);
+
+    @include breakpoint(m) {
+      display: flex;
+      padding-inline: var(--space-2xs);
+      padding-block: var(--space-xs);
+      inline-size: var(--menu-width);
+      min-block-size: 100dvh;
+    }
+
+    &.is-floating {
+      @include breakpoint(m) {
+        margin-inline-start: var(--space-xs);
+        margin-block-start: var(--space-xs);
+        min-block-size: calc(100dvh - var(--space-around) / 2 - var(--space-xs));
+      }
+    }
+
+    &.is-expanded {
+      --menu-width: 260px;
+
+      @include breakpoint(m) {
+        a,
+        button {
+          display: flex;
+          align-items: center;
+          gap: var(--space-2xs);
+
+          &::before {
+            inset-inline-start: calc(var(--space-2xs) * -1);
+            border-radius: 0;
+            inline-size: calc(100% + var(--space-2xs) * 2);
+          }
+        }
+
+        :global(.logo p),
+        :global(.avatar .content p) {
+          opacity: 1;
+          transition:
+            opacity var(--animation-speed-fast) var(--cubic-bezier) 100ms,
+            max-inline-size var(--animation-speed-fast) var(--cubic-bezier);
+          max-inline-size: 200px;
+        }
+      }
+    }
+
+    a,
+    button {
+      display: grid;
+      position: relative;
+      place-items: center;
+      border-radius: var(--radius-s);
+      inline-size: 100%;
+      block-size: var(--target-size-max);
+      color: var(--foreground-color);
+    }
+
+    a::before,
+    button::before {
+      position: absolute;
+      opacity: 0;
+      transition: all var(--animation-speed-fast) var(--cubic-bezier);
+      inset: 0;
+      border-radius: inherit;
+      background-color: var(--color-secondary-100);
+      pointer-events: none;
+      content: '';
+    }
+
+    :global(.logo p),
+    :global(.avatar .content p) {
+      opacity: 0;
+      transition:
+        opacity var(--animation-speed-fast) var(--cubic-bezier),
+        max-inline-size var(--animation-speed-fast) var(--cubic-bezier);
+      max-inline-size: 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    &:has(.toggle button[aria-expanded='false']) {
+      span {
+        @include breakpoint(m) {
+          @include sr-only;
+        }
+      }
+    }
+  }
+
+  li.logo {
+    margin-block-end: var(--space-2xs);
+  }
+
+  li.search {
+    margin-block-end: var(--space-xs);
+    border-block-end: 1px solid var(--color-neutral-600);
+    padding-block-end: var(--space-xs);
+  }
+
+  li.user {
+    border-block-start: 1px solid var(--color-neutral-600);
+    padding-block-start: var(--space-xs);
+  }
+
+  span,
+  :global(.avatar) {
+    z-index: 1;
+  }
+
+  .toggle {
+    display: none;
+
+    @include breakpoint(900px) {
+      display: grid;
+    }
+
+    button {
+      svg:first-of-type {
+        display: block;
+      }
+
+      svg:last-of-type {
+        display: none;
+      }
+
+      &[aria-expanded='true'] {
+        svg:first-of-type {
+          display: none;
+        }
+
+        svg:last-of-type {
+          display: block;
+        }
+      }
+    }
+  }
+
+  svg {
+    position: relative;
+    flex-shrink: 0;
+    color: var(--color-neutral-400);
+  }
+
+  a:where(:hover, :focus-visible)::before {
+    // opacity: 1 !important;
+  }
+
+  .is-active a,
+  a:where(:hover, :focus-visible),
+  button:where(:hover, :focus-visible) {
+    color: var(--foreground-color);
+
+    svg {
+      color: var(--foreground-color);
+    }
+
+    &::before {
+      opacity: 0.5 !important;
+    }
+  }
+</style>

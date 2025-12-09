@@ -12,6 +12,8 @@ const {
   image = 'social-preview-image.png',
   author = 'Incluud',
 } = Astro.props
+
+const isLoginPage = Astro.url.pathname === '/login'
 ---
 
 <html lang="en" dir="ltr">
@@ -28,10 +30,62 @@ const {
     <!-- Enable Astro View Transitions for all browsers -->
     <ClientRouter />
   </head>
-  <body>
-    <Navigation />
+  <body class={!isLoginPage ? 'flex flex-col md:gap-8 md:flex-row' : ''}>
+    {!isLoginPage && <Navigation isFloating={true} />}
     <main id="main-content" transition:animate="fade">
       <slot />
     </main>
   </body>
 </html>
+
+<script is:inline>
+  // Dark mode initialization
+  if (!window.darkModeInitialized) {
+    window.darkModeInitialized = true
+
+    const root = document.documentElement
+    let darkMode = localStorage.getItem('darkMode')
+
+    const enableDarkMode = (store = true) => {
+      const darkModeToggles = document.querySelectorAll('.darkmode-toggle')
+      root.classList.add('darkmode')
+      root.style.colorScheme = 'dark'
+      darkModeToggles.forEach((toggle) => toggle.setAttribute('aria-pressed', 'true'))
+      if (store) localStorage.setItem('darkMode', 'enabled')
+    }
+
+    const disableDarkMode = (store = true) => {
+      const darkModeToggles = document.querySelectorAll('.darkmode-toggle')
+      root.classList.remove('darkmode')
+      root.style.colorScheme = 'light'
+      darkModeToggles.forEach((toggle) => toggle.setAttribute('aria-pressed', 'false'))
+      if (store) localStorage.setItem('darkMode', 'disabled')
+    }
+
+    const checkPreference = () => {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        enableDarkMode(false)
+      } else {
+        disableDarkMode(false)
+      }
+    }
+
+    const initializeDarkMode = () => {
+      if (darkMode) {
+        darkMode === 'enabled' ? enableDarkMode() : disableDarkMode()
+        return
+      }
+
+      checkPreference()
+    }
+
+    // execution
+    initializeDarkMode()
+
+    // Listen for view transitions
+    document.addEventListener('astro:after-swap', () => {
+      darkMode = localStorage.getItem('darkMode')
+      initializeDarkMode()
+    })
+  }
+</script>
