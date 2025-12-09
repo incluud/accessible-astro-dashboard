@@ -30,4 +30,7 @@ package-lock.json
 .astro
 
 # cursor
-.cursor
+.cursor/*
+
+# netlify
+.netlify
